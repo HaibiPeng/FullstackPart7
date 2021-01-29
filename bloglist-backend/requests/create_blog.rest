@@ -1,0 +1,31 @@
+GET http://localhost:3003/api/blogs/
+
+###
+GET http://localhost:3003/api/blogs/5ff4d2322bf9a8163917b631
+
+###
+POST http://localhost:3003/api/blogs/ HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJveHVhbiIsImlkIjoiNWZmNzc0NDNkMjVmNTg3MjE4ZTdkZGFkIiwiaWF0IjoxNjEwMDU1NTM5fQ.NvB90X3BxzpY4wTzCI6Olz4RbCtkl34BwvonQRoaSo8
+
+{
+    "title": "gjhgfdhdfg",
+    "author": "34254325",
+    "url": "https://www.goo4325234s.com/",
+    "likes": 12
+}
+
+###
+DELETE http://localhost:3003/api/blogs/60141065fc4bef6b8e19e9ea
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJveHVhbiIsImlkIjoiNWZmNzc0NDNkMjVmNTg3MjE4ZTdkZGFkIiwiaWF0IjoxNjEwMDU1NTM5fQ.NvB90X3BxzpY4wTzCI6Olz4RbCtkl34BwvonQRoaSo8
+
+###
+PUT  http://localhost:3003/api/blogs/5ff6e5b3749edc5d3b81915e HTTP/1.1
+content-type: application/json
+
+{
+    "title": "asdfasdf",
+    "author": "Hsafdsafdasf",
+    "url": "https://www.googledsafds.com/",
+    "likes": 15
+}
