@@ -13,12 +13,13 @@ usersRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
     const saltRounds = 10
-    if (body.password.length === 0) {
-      return response.status(400).json({
-        error: 'User validation failed: password: password is required'
-      })
-    }
-    if (body.password.length < 3) {
+    // if (body.password.length === 0) {
+    //   console.log('User validation failed: password: password is required')
+    //   return response.json({
+    //     error: 'User validation failed: password: password is required'
+    //   })
+    // }
+    if (body.password.length < 4) {
       return response.status(400).json({
         error: 'User validation failed: password: password is too short'
       })
@@ -33,7 +34,8 @@ usersRouter.post('/', async (request, response, next) => {
 
     const savedUser = await user.save()
 
-    response.json(savedUser)
+    //response.json(savedUser)
+    response.json({ signup: true })
   } catch (exception) {
     next(exception)
   }

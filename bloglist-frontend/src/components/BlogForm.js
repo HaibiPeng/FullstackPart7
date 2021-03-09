@@ -24,9 +24,9 @@ const BlogForm = () => {
       author: newAuthor,
       url: newUrl
     }
-    dispatch(createBlog(blogObject)).then(
-    dispatch(setSuccessNotification(`a new blog '${blogObject.title}' by ${blogObject.author} added`, 5))
-    )
+    dispatch(createBlog(blogObject)).then(() => {
+      dispatch(setSuccessNotification(`a new blog '${blogObject.title}' by ${blogObject.author} added`, 5))
+    })
     .catch (error => {
         dispatch(setErrorNotification(error.response.data.error, 5))
     })

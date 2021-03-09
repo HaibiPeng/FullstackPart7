@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import Blogs from './components/blogList'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
 import LogoutForm from './components/LogoutForm'
 import Notification from './components/Notification'
 import Users from './components/Users'
@@ -14,16 +15,20 @@ import { getToken } from './reducers/userReducer'
 import { Switch, Route, Link } from "react-router-dom"
 import { Container, Button, AppBar, Toolbar } from '@material-ui/core'
 
-const Menu = ( { user } ) => {
+const Menu = ({ user, token } ) => {
   return (
     <div>
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" component={Link} to="/">blogs</Button>
           <Button color="inherit" component={Link} to="/users">users</Button>
-          {user === null ? 
-          <Button color="inherit" component={Link} to="/login">login</Button> : 
+          {(user !== null) && (token !== null)?
           <span>{user.username} logged in <LogoutForm /></span>
+          : 
+          <div>
+            <Button color="inherit" component={Link} to="/login">login</Button>
+            <Button color="inherit" component={Link} to="/signup">signup</Button>
+          </div>
           }
         </Toolbar>
       </AppBar>
@@ -32,8 +37,13 @@ const Menu = ( { user } ) => {
 }
 
 const App = () => {
+  var token = null
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
+  const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+  if (loggedUserJSON !== null){
+    token = loggedUserJSON.token
+  }
 
   useEffect(() => {
     dispatch(getToken())
@@ -46,7 +56,7 @@ const App = () => {
   return (
     <Container>
     <div className="container">
-      <Menu user={user}/>
+        <Menu user={user} token={token}/>
       <Notification />
       <Switch>
         <Route path="/users/:id">
@@ -57,6 +67,9 @@ const App = () => {
         </Route>
         <Route path="/login">
           <LoginForm />
+        </Route>
+        <Route path="/signup">
+          <SignupForm />
         </Route>
         <Route path="/users">
           <Users />

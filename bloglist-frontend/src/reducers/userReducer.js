@@ -1,16 +1,19 @@
 import blogService from '../services/blogs'
 import loginService from '../services/login'
+import signupService from '../services/signup'
 
 const userReducer = (state = {}, action) => {
   switch (action.type) {
-  case 'SET_TOKEN':
-    return action.user
-  case 'GET_TOKEN':
-    return action.user
-  case 'REMOVE_TOKEN':
-    return null
-  default:
-    return state
+    case 'SIGN_UP':
+      return action.msg
+    case 'SET_TOKEN':
+      return action.user
+    case 'GET_TOKEN':
+      return action.user
+    case 'REMOVE_TOKEN':
+      return null
+    default:
+      return state
   }
 }
 
@@ -52,6 +55,19 @@ export const removeToken = () => {
     blogService.setToken(null)
     dispatch({
       type: 'REMOVE_TOKEN',
+    })
+  }
+}
+
+export const signUp = (username, name, password) => {
+  return async dispatch => {
+    const msg = await signupService.signup({
+      username, name, password
+    })
+    console.log(msg)
+    dispatch({
+      type: 'SIGN_UP',
+      msg: msg
     })
   }
 }
